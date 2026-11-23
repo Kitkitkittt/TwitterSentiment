@@ -21,7 +21,7 @@ If a `swarm-ready` skill is installed, load it. Otherwise execute the documented
 
 ## Repository starting point
 
-Read: [README.md](README.md).
+Read the [README](README.md), then trace the historical stages: [acquire tweets and prices](1TwitterAndPriceScrapeBeta.R), [clean and score sentiment](2TwitterDataCleansingAndSentimentAnalysis.R), and [model `FinalData`](3RunningCorrelationAndRegression.R). The later stages rely on objects from the original workspace; the checked-in `.RData` is not a validated test fixture.
 
 Continue an existing approved issue or a clearly scoped user objective after inspecting the source map below. If none is selected, return the smallest useful improvement and its verifier as the handoff; do not begin a portfolio-wide rewrite.
 
@@ -41,7 +41,16 @@ The base above is an inspection snapshot, not a permanent working branch. Refres
 
 ## Verification starting point
 
-No executable acceptance command was established by this bounded source inspection. Read `README.md` and record the narrowest existing check before implementation. Do not invent a `test` command or infer that the repository has no tests from this gap. For a documentation-only task, check links, factual source anchors and whitespace; do not build unrelated application code.
+From the checkout root with base R available, parse the three scripts without evaluating them:
+
+```sh
+Rscript --vanilla -e 'for (path in commandArgs(trailingOnly = TRUE)) { invisible(parse(file = path)); cat("Parsed", path, "\n") }' \
+  1TwitterAndPriceScrapeBeta.R \
+  2TwitterDataCleansingAndSentimentAnalysis.R \
+  3RunningCorrelationAndRegression.R
+```
+
+Expect exit 0 and one `Parsed` line for each script. `--vanilla` skips workspace and profile startup, and `parse()` does not run top-level setup. Use this syntax check and local link/source review for the documentation handoff. Do not source the scripts, load `.RData`, install the scripts' analysis dependencies, contact providers, or generate data for this check. A parse pass does not validate the historic inputs, model outputs, or current API access.
 
 ## Required handoff result
 

@@ -3,27 +3,16 @@
 ## Overview
 This project analyzes Twitter data to explore its correlation with pricing trends through data scraping, cleansing, sentiment analysis, and regression modeling. The insights aim to inform pricing strategies and market trends.
 
-## Installation Instructions
-1. Install R and RStudio.
-2. Install required packages:
-   ```R
-   install.packages(c('tidyverse', 'rvest', 'lubridate', 'ggplot2', 'dplyr'))
-   ```
-3. Clone the repository:
-   ```bash
-   git clone https://github.com/Kohnnn/TwitterDataAnalysis.git
-   ```
+## Start with an offline check
 
-## Usage Examples
-1. Set your working directory in RStudio to the project folder.
-2. Run the main script:
-   ```R
-   source('1TwitterAndPriceScrapeBeta.R')
-   ```
-3. Follow console prompts for parameters.
+Use the [swarm-ready handoff](SWARM_READY.md#verification-starting-point) to
+check the three R scripts without installing analysis packages, sourcing the
+scripts, or contacting providers. This is a historical analysis, not a
+self-contained reproducible pipeline: later stages expect objects from the
+original R workspace. The acquisition script is not a local smoke test.
 
 ## Features
-- **Data Scraping**: Collect real-time Twitter data.
+- **Historical acquisition**: Example Twitter and Bitcoin-price collection code; current provider access has not been verified.
 - **Data Cleansing**: Preprocess data for analysis.
 - **Sentiment Analysis**: Gauge public opinion.
 - **Statistical Modeling**: Identify correlations with pricing.
@@ -32,13 +21,13 @@ This project analyzes Twitter data to explore its correlation with pricing trend
 ## R Script Descriptions
 
 ### 1TwitterAndPriceScrapeBeta.R
-This script scrapes Twitter data related to pricing trends using the Twitter API. It connects to the API with authentication tokens using the `rtweet` library. The script defines search parameters such as keywords (e.g., "#pricing", "#markettrends") and date ranges to filter relevant tweets. It handles Twitter's rate limits to ensure successful data collection, storing the collected tweets in a structured format (data frame) for further analysis.
+Historical acquisition script for tweets via `rtweet` and hourly Bitcoin prices via CryptoCompare. Its top-level code attempts authenticated collection and writes files, so do not source it for verification.
 
 ### 2TwitterDataCleansingAndSentimentAnalysis.R
-This script cleans the scraped Twitter data by removing duplicates and irrelevant tweets. It utilizes libraries like `dplyr` for data manipulation and `tidytext` for sentiment analysis. The text data is preprocessed by removing URLs, punctuation, and stop words. Sentiment analysis is conducted using a lexicon-based approach, categorizing tweets as positive, negative, or neutral. The results, including sentiment scores, are saved for subsequent analyses.
+Exploratory cleaning and sentiment analysis using `sentimentr`. It expects tweet and price objects already present in the R workspace and sketches the construction of `FinalData` for modeling.
 
 ### 3RunningCorrelationAndRegression.R
-This script performs correlation and regression analyses on the cleansed Twitter data. It uses libraries such as `ggplot2` for data visualization and `stats` for statistical modeling. The script calculates Pearson correlation coefficients between sentiment scores and pricing trends, running linear regression models to predict pricing based on sentiment. The output includes visualizations, such as scatter plots and regression lines, to illustrate relationships and trends effectively.
+Fits a linear model and plots correlations when a prepared `FinalData` is available. The model uses `price` as the response and `volume`, `n`, `Agreement`, and `sentiment` as predictors.
 
 ## Future Work
 - Integrate additional data sources for richer analysis.
@@ -49,7 +38,7 @@ This script performs correlation and regression analyses on the cleansed Twitter
 Thanks to the developers of R packages used in this project, including `tidyverse`, `rvest`, and `ggplot2`.
 
 ## Badges
-![Build Status](https://img.shields.io/badge/build-passing-brightgreen) ![License](https://img.shields.io/badge/license-MIT-blue) 
+![License](https://img.shields.io/badge/license-MIT-blue)
 
 ## Contact
 For inquiries or collaboration, reach out via my GitHub profile: [Kohnnn](https://github.com/Kohnnn).
