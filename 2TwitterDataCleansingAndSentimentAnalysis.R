@@ -45,7 +45,7 @@ ts_plot(`{{CLEAN_DATA}}`, by = "hours", trim = 0L, tz = "UTC") +
 clean_text <- function(text) {
   # Remove unwanted characters and clean text
   text <- gsub("<(.*)>", "", text) # Remove Unicodes like <U+A>
-  text <- gsub("\\ \. ", " ", text) # Replace orphaned full stops with space
+  text <- gsub(" . ", " ", text, fixed = TRUE) # Replace orphaned full stops with space
   text <- gsub("%%", "'", text) # Change %% back to apostrophes
   text <- gsub("\\n", "-", text) # Replace line breaks with "-"
   text <- gsub("^[[:space:]]*", "", text) # Remove leading whitespaces
